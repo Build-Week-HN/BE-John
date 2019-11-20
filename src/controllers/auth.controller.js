@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const secrets = require('../../config');
 
 const User = require('../models/user-model.js');
+const validateUser = require('../validators/user-validator');
 
 
 function generateToken(user) {
@@ -20,6 +21,12 @@ function generateToken(user) {
 
 const login = (req, res) => {
   const { username, password } = req.body;
+
+  const isValid = validateUser({username, password});
+
+  if (!(isValid.success)) {
+    res.status(400).json(isValid);
+  }
 
   User.findBy({ username })
     .then((user) => {

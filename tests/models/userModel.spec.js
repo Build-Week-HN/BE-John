@@ -3,6 +3,7 @@ const Users = require('../../src/models/user-model');
 
 describe('users model', () => {
   beforeEach(async () => {
+    await db('items').truncate();
     await db('users').truncate();
   });
 
@@ -10,7 +11,7 @@ describe('users model', () => {
     it('adds users into the db', async () => {
       let allUsers = await db('users');
       expect(allUsers).toHaveLength(0);
-      await Users.add({ username: 'neema', password: '1234abcd' });
+      await Users.add({ username: 'nero', password: '1234abcd' });
       allUsers = await db('users');
       expect(allUsers).toHaveLength(1);
     });

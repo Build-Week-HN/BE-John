@@ -11,10 +11,13 @@ exports.up = function (knex) {
     table.timestamp('created').defaultTo(knex.fn.now());
     table.integer('score');
     table.integer('comment_count');
+    table.specificType('comments', 'INT[]');
     table.string('url');
     table.integer('parent');
-    table.integer('user_id').unsigned();
-    table.foreign('user_id').references('id').inTable('users');
+    table.integer('user_id').unsigned()
+      .notNullable();
+    table.foreign('user_id').references('id').inTable('users')
+      .onDelete('CASCADE');
   });
 };
 

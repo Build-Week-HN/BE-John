@@ -6,7 +6,11 @@ const data = require('./item-test-data.js');
 describe('items model', () => {
   beforeEach(async () => {
     await db('items').truncate();
+    await db('users').truncate();
+    await db('users').insert({ username: 'nero', password: '1234adc' });
+    await db('users').insert({ username: 'neema', password: '1234adc' });
   });
+
 
   describe('add item function', () => {
     it('adds an item(story, comment etc) into the db', async () => {
@@ -83,11 +87,11 @@ describe('items model', () => {
       const story = await Items.add(data.story);
       expect(story.id).toBe(1);
 
-      const addedStory = Items.findById(story.id);
+      const addedStory = await Items.findById(story.id);
       expect(addedStory).toEqual(story);
 
       const id = await Items.remove(story.id);
-      const removedStory = Items.findById(story.id);
+      const removedStory = await Items.findById(story.id);
 
       expect(removedStory).toBeFalsy();
       expect(id).toBe(story.id);
@@ -100,9 +104,9 @@ describe('items model', () => {
 
       expect(comment).toHaveProperty('by', 'norvig');
 
-      const updatedComment = Items.update({ by: 'mulongo' }, comment.id);
+      const updatedComment = await Items.update({ by: 'mulongo' }, comment.id);
 
-      // expect(updatedComment).toBe(true);
+      expect(updatedComment).toBeTruthy();
     });
   });
 });

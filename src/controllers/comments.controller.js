@@ -17,7 +17,7 @@ const getComment = (req, res) => {
       }
     })
     .catch((error) => {
-      res.status(500).json({ message: `Error getting project actions: ${error.message}` });
+      res.status(500).json({ message: `Error getting comment: ${error.message}` });
     });
 };
 

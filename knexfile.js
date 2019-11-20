@@ -1,11 +1,15 @@
+require('dotenv').config();
+
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './src/db/hn.db3',
+    client: 'pg',
+    // connection: 'postgres://jp:cavier@localhost:5432/hn_db',
+    connection: process.env.DB_URL,
+    pool: {
+      min: 2,
+      max: 10,
     },
-    useNullAsDefault: true,
     migrations: {
       directory: './src/db/migrations',
     },
@@ -15,33 +19,37 @@ module.exports = {
   },
 
   testing: {
-    client: 'sqlite3',
-    connection: {
-      filename: './src/db/test.db3',
-    },
-    useNullAsDefault: true,
+    client: 'pg',
+    connection: process.env.TEST_DB_URL,
     migrations: {
       directory: './src/db/migrations',
     },
     seeds: {
       directory: './src/db/seeds',
     },
+    pool: {
+      min: 2,
+      max: 10,
+    },
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password',
-      host: '127.0.0.1',
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
     },
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
-      tableName: 'knex_migrations',
+      directory: './src/db/migrations',
+    },
+    seeds: {
+      directory: './src/db/seeds',
     },
   },
 

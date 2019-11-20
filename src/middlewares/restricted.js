@@ -9,7 +9,7 @@ function restricted(req, res, next) {
       secrets.jwtSecret,
       (err, decodedToken) => {
         if (err) {
-          res.status(401).json({ message: err.message });
+          res.status(401).json({ status: 401, error: err.message });
         } else {
           req.decodedToken = decodedToken;
           next();
@@ -17,7 +17,7 @@ function restricted(req, res, next) {
       },
     );
   } else {
-    res.status(400).json({ message: 'Provide credentials' });
+    res.status(400).json({ status: 400, error: 'Unauthenticated - please provide a valid token' });
   }
 }
 
