@@ -1,32 +1,11 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const secrets = require('../../config');
 
 const User = require('../models/user-model.js');
-const validateUser = require('../validators/user-validator');
+const generateToken = require('../utils');
 
-
-function generateToken(user) {
-  const payload = {
-    subject: user.id,
-    username: user.username,
-  };
-
-  const options = {
-    expiresIn: '1h',
-  };
-
-  return jwt.sign(payload, secrets.jwtSecret, options);
-}
 
 const login = (req, res) => {
   const { username, password } = req.body;
-
-  const isValid = validateUser({username, password});
-
-  if (!(isValid.success)) {
-    res.status(400).json(isValid);
-  }
 
   User.findBy({ username })
     .then((user) => {
