@@ -37,7 +37,6 @@ const JOB = {
 };
 
 exports.seed = function (knex) {
-  // Deletes ALL existing entries
   return knex('items').truncate()
     .then(() => knex('items').insert([
       STORY,
