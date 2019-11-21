@@ -14,7 +14,6 @@ const getStory = (req, res) => {
     .then(async (item) => {
       if (item.type === 'story') {
         const comments = await Items.findBy({ type: 'comment', parent: id });
-        console.log('######################## ', item.comments.length);
         res.status(200).json({ status: 200, data: [item] });
       } else {
         res.status(404).json({ status: 404, error: 'Story not found' });
