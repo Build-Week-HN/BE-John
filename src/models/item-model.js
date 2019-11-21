@@ -16,8 +16,8 @@ function findById(id) {
 }
 
 async function add(item) {
-  const [id] = await db('items').insert(item);
-  return findById(id);
+  const story = await db('items').insert(item).returning('*');
+  return story;
 }
 
 function remove(id) {
@@ -33,6 +33,16 @@ function update(data, id) {
     .update(data, updateFields);
 }
 
+async function addComment(comment, itemId) {
+  const [commentId] = await db('items').insert(comment).returning('id');
+  const query = `update items set comments = comments || ${commentId} where id=${itemId} returning comments;`;
+  const result = await db.raw(query);
+  const commentCount = result.rows[0].comments.length;
+  await db.raw(`update items set comment_count = ${commentCount} where id=${itemId}`);
+  return commentId;
+}
+
+
 module.exports = {
   getAll,
   findBy,
@@ -40,4 +50,5 @@ module.exports = {
   add,
   remove,
   update,
+  addComment,
 };
