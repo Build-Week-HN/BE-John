@@ -1,7 +1,7 @@
-const restricted = require('./restricted');
+const unauthorized = require('./unauthorized');
 const validator = require('./validators');
 
 module.exports = {
-  restricted,
+  unauthorized,
   validator,
 };

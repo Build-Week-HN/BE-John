@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const secrets = require('../../config');
 
-function restricted(req, res, next) {
+function unathorized(req, res, next) {
   const token = req.headers.authorization;
   if (token) {
     jwt.verify(
@@ -21,4 +21,4 @@ function restricted(req, res, next) {
   }
 }
 
-module.exports = restricted;
+module.exports = unathorized;
