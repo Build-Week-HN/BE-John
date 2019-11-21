@@ -1,5 +1,6 @@
 // Ask controller
 
+const createComment = require('../utils/create-comment');
 const Items = require('../models/item-model');
 
 const getAllAsks = async (req, res) => {
@@ -72,15 +73,20 @@ const updateAsk = (req, res) => {
 };
 
 const addCommentToAsk = (req, res) => {
-  const comment = req.body;
+  const { text } = req.body;
   const { id } = req.params;
+  const user = req.decodedToken;
 
   Items.findById(id)
     .then(async (item) => {
       if (item.type === 'ask') {
-        comment.parent = Number(id);
-        comment.type = 'comment';
-        const commentId = await Items.addComment(comment, id);
+        const parent = Number(id);
+        const type = 'comment';
+        const by = user.username;
+        const newComment = createComment({
+          parent, type, by, text,
+        });
+        const commentId = await Items.addComment(newComment, id);
         res.status(200).json({ status: 200, data: [{ id: commentId, message: 'comment successfully added' }] });
       } else {
         res.status(404).json({ status: 404, error: 'The ask does not exist' });

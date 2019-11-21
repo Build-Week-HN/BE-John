@@ -1,6 +1,7 @@
 // stories controller
 
 const Items = require('../models/item-model');
+const createComment = require('../utils/create-comment');
 
 const getAllStories = async (req, res) => {
   const stories = await Items.findBy({ type: 'story' });
@@ -71,17 +72,20 @@ const updateStory = (req, res) => {
 };
 
 const addCommentToStory = (req, res) => {
-  const comment = req.body;
+  const { text } = req.body;
   const { id } = req.params;
-	const user = req.decodedToken;
+  const user = req.decodedToken;
 
   Items.findById(id)
     .then(async (item) => {
       if (item.type === 'story') {
-        comment.parent = Number(id);
-        comment.type = 'comment';
-				comment.by = user.username;
-        const commentId = await Items.addComment(comment, id);
+        const parent = Number(id);
+        const type = 'comment';
+        const by = user.username;
+        const newComment = createComment({
+          parent, type, by, text,
+        });
+        const commentId = await Items.addComment(newComment, id);
         res.status(200).json({ status: 200, data: [{ id: commentId, message: 'comment successfully added' }] });
       } else {
         res.status(404).json({ status: 404, error: 'The story does not exist' });
