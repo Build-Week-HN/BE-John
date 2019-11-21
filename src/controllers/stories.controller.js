@@ -107,9 +107,9 @@ const getAllStoryComments = (req, res) => {
 };
 
 const getStoryComment = (req, res) => {
-  const { storyId, commentId } = req.params;
+  const { id, commentId } = req.params;
 
-  Items.findBy({ type: 'comment', parent: storyId, id: commentId })
+  Items.findBy({ type: 'comment', parent: id, id: commentId })
     .then((comment) => {
       if (comment) {
         res.status(200).json({ status: 200, data: comment });
@@ -139,9 +139,9 @@ const updateStoryComment = (req, res) => {
 
 
 const deleteStoryComment = (req, res) => {
-  const { storyId, commentId } = req.params;
+  const { id, commentId } = req.params;
 
-  Items.findBy({ type: 'comment', parent: storyId, id: commentId })
+  Items.findBy({ type: 'comment', parent: id, id: commentId })
     .then(async (comment) => {
       if (comment) {
         try {
