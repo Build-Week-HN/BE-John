@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
+    "start": "node index.js",
     "test": "cross-env DB_ENV=testing jest --watch"
   },
   "repository": {
@@ -38,5 +39,9 @@
     "knex": "^0.20.2",
     "nodemon": "^1.19.4",
     "pg": "^7.13.0"
+  },
+
+  "engines": {
+    "node": "10.16.0"
   }
 }
