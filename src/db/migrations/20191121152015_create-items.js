@@ -8,7 +8,7 @@ exports.up = function (knex) {
     table.string('title');
     table.text('text');
     table.string('type');
-    table.timestamp('created').defaultTo(knex.fn.now());
+    table.datetime('created').defaultTo(knex.fn.now());
     table.integer('score');
     table.integer('comment_count');
     table.specificType('comments', 'INT[]');

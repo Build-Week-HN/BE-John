@@ -43,8 +43,5 @@ exports.seed = function (knex) {
       COMMENT,
       JOB,
       ASK,
-      STORY,
-      STORY,
-      COMMENT,
     ]));
 };
