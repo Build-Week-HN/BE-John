@@ -9,9 +9,11 @@ const forbidden = (req, res, next) => {
       if (item) {
         if (item.by === user.username) {
           next();
+        } else {
+          res.status(403).json({ status: 403, error: 'Forbidden: You cant access this endpoint' });
         }
       } else {
-        res.status(403).json({ status: 403, error: 'Forbidden: You cant access this endpoint' });
+        res.status(404).json({ status: 404, message: 'Item not found' });
       }
     })
     .catch((error) => {
