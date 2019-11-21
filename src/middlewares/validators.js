@@ -1,28 +1,15 @@
-// custom middleware
-const Items = require('../models/item-model');
+const Joi = require('joi');
 
-function validateItemId(req, res, next) {
-  const { id } = req.params;
-
-  Items.findById(id)
-    .then((item) => {
-      if (item) {
-        req.item = item;
-        next();
-      } else {
-        res.status(400).json({ status: 400, error: 'Invalid ID' });
-      }
-    });
-}
-
-function validateItem(req, res, next) {
-  if (Object.keys(req.body).length) {
-    if ('name' in req.body && 'description' in req.body) {
-      next();
-    } else {
-      res.status(400).json({ message: 'missing or empty required name field' });
-    }
+const validator = (schema, property) => (req, res, next) => {
+  const { error } = Joi.validate(req[property], schema);
+  const valid = error == null;
+  if (valid) {
+    next();
   } else {
-    res.status(400).json({ message: 'missing project data' });
+    const { details } = error;
+    const message = details.map((i) => i.message).join(',');
+    res.status(422).json({ status: 422, error: message });
   }
-}
+};
+
+module.exports = validator;
