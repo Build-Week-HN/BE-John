@@ -1,6 +1,5 @@
 const router = require('express').Router();
 
-const { restricted } = require('../middlewares');
 const authRouter = require('../routes/auth');
 const commentsRouter = require('../routes/comments');
 const storiesRouter = require('../routes/stories');
@@ -10,7 +9,7 @@ const storiesRouter = require('../routes/stories');
 router.use('/auth', authRouter);
 
 // comments router
-router.use('/comments', restricted, commentsRouter);
+router.use('/comments', commentsRouter);
 
 // stories router
 router.use('/stories', storiesRouter);

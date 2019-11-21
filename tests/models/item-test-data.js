@@ -3,7 +3,6 @@ const COMMENT = {
   parent: 20,
   text: "Aw shucks, guys ... you make me blush with your compliments.<p>Tell you what, Ill make a deal: I'll keep writing if you keep reading. K?",
   type: 'comment',
-  user_id: 1,
 };
 
 const STORY = {
@@ -13,7 +12,6 @@ const STORY = {
   title: 'My YC app: Dropbox - Throw away your USB drive',
   type: 'story',
   url: 'http://www.getdropbox.com/u/2/screencast.html',
-  user_id: 1,
 };
 
 const ASK = {
@@ -24,7 +22,6 @@ const ASK = {
   title: 'Ask HN: The Arc Effect',
   type: 'story',
   url: '',
-  user_id: 2,
 };
 
 const JOB = {
@@ -33,7 +30,6 @@ const JOB = {
   title: 'Justin.tv is looking for a Lead Flash Engineer!',
   type: 'job',
   url: '',
-  user_id: 2,
   text: 'ustin.tv is the biggest live video site online. We serve hundreds of thousands of video streams a day, and have supported up to 50k live concurrent viewers',
 };
 

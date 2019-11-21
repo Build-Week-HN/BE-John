@@ -4,7 +4,7 @@ exports.up = function (knex) {
   return knex.schema.createTable('items', (table) => {
     table.increments();
 
-    table.string('by');
+    table.string('by').notNullable();
     table.string('title');
     table.text('text');
     table.string('type');
@@ -14,10 +14,6 @@ exports.up = function (knex) {
     table.specificType('comments', 'INT[]');
     table.string('url');
     table.integer('parent');
-    table.integer('user_id').unsigned()
-      .notNullable();
-    table.foreign('user_id').references('id').inTable('users')
-      .onDelete('CASCADE');
   });
 };
 

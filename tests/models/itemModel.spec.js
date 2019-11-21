@@ -6,9 +6,6 @@ const data = require('./item-test-data.js');
 describe('items model', () => {
   beforeEach(async () => {
     await db('items').truncate();
-    await db('users').truncate();
-    await db('users').insert({ username: 'nero', password: '1234adc' });
-    await db('users').insert({ username: 'neema', password: '1234adc' });
   });
 
 
