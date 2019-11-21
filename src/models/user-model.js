@@ -6,8 +6,7 @@ function findAll() {
 
 function findBy(filter) {
   return db('users')
-    .where(filter)
-    .first();
+    .where(filter);
 }
 
 function findById(id) {
@@ -17,8 +16,8 @@ function findById(id) {
 }
 
 async function add(user) {
-  const [id] = await db('users').insert(user);
-  return findById(id);
+  const newUser = await db('users').insert(user).returning('*');
+  return newUser;
 }
 
 function remove(id) {
@@ -40,4 +39,5 @@ module.exports = {
   add,
   remove,
   update,
+  findById,
 };
