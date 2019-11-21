@@ -73,12 +73,14 @@ const updateStory = (req, res) => {
 const addCommentToStory = (req, res) => {
   const comment = req.body;
   const { id } = req.params;
+	const user = req.decodedToken;
 
   Items.findById(id)
     .then(async (item) => {
       if (item.type === 'story') {
         comment.parent = Number(id);
         comment.type = 'comment';
+				comment.by = user.username;
         const commentId = await Items.addComment(comment, id);
         res.status(200).json({ status: 200, data: [{ id: commentId, message: 'comment successfully added' }] });
       } else {

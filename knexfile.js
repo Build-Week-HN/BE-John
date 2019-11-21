@@ -4,7 +4,6 @@ module.exports = {
 
   development: {
     client: 'pg',
-    // connection: 'postgres://jp:cavier@localhost:5432/hn_db',
     connection: process.env.DB_URL,
     pool: {
       min: 2,
