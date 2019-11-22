@@ -4,7 +4,7 @@ Hacker News API is organized around REST. The API accepts form-encoded/json requ
 returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
 
 This API is a mirror to the real Hacker News API with updated fields for some of the resources. It also
-provides new endpoints for accessing resources that aren't provided in the reac HN API.
+provides new endpoints for accessing resources that aren't provided in the real HN API.
 
 
 # Link to Hosted [demo](https://shielded-depths-48670.herokuapp.com/api/)
