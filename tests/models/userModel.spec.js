@@ -3,7 +3,6 @@ const Users = require('../../src/models/user-model');
 
 describe('users model', () => {
   beforeEach(async () => {
-    await db('items').truncate();
     await db('users').truncate();
   });
 
@@ -23,7 +22,7 @@ describe('users model', () => {
       const user = await Users.findBy({ username: 'nero' });
       expect(user).toHaveLength(0);
 
-      Users.add({ username: 'nero', password: '1234abcd' });
+      await Users.add({ username: 'nero', password: '1234abcd' });
       const foundUser = await Users.findBy({ username: 'nero' });
       expect(foundUser).toHaveLength(1);
     });
