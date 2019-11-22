@@ -70,7 +70,7 @@ you will be required to supply your username and password.
 
 To obtain the token use the following endpoint
 
-        `<host>/api/v2/auth/login`
+        `<host>/api/auth/login`
 
 the response is a json formatted output containing a **token** that will be used for authentication.
 
