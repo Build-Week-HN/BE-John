@@ -8,7 +8,7 @@ const login = (req, res) => {
   const { username, password } = req.body;
 
   User.findBy({ username })
-    .then((user) => {
+    .then(([user]) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
         const {
@@ -40,7 +40,7 @@ const register = (req, res) => {
   user.password = hash;
 
   User.add(user)
-    .then((newUser) => {
+    .then(([newUser]) => {
       const {
         id, username, about, karma, created,
       } = newUser;

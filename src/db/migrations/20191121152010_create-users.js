@@ -11,7 +11,7 @@ exports.up = function (knex) {
     table.string('password', 128).notNullable();
     table.text('about');
     table.integer('karma');
-    table.timestamp('created');
+    table.timestamp('created').defaultTo(knex.fn.now());
   });
 };
 
