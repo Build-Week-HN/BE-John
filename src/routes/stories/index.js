@@ -5,7 +5,9 @@ const { validator } = require('../../middlewares');
 const schemas = require('../../validators/schema');
 
 router.get('/', stories.getAllStories);
-router.post('/', [unauthorized, validator(schemas.story, 'body')], stories.addStory);
+router.post('/',
+  [unauthorized, validator(schemas.story, 'body')],
+  stories.addStory);
 router.get('/:id', validator(schemas.itemId, 'params'), stories.getStory);
 router.put('/:id',
   [unauthorized,
