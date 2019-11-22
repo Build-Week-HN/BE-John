@@ -1,8 +1,8 @@
 const cron = require('node-cron');
 const addData = require('./addHNData');
 
-// Fetch data from HN at 11:59pm everyday
-cron.schedule('59 23 * * *', () => {
+// Fetch data from HN every hour
+cron.schedule('0 0 */1 * * *', () => {
   try {
     addData();
 
